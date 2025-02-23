@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Havox Cloud Instances</title>
-        <style>
-            body, html {
-                margin: 0;
-                padding: 0;
-                height: 100%;
-                width: 100%;
-                overflow: hidden;
-            }
-            
-            iframe {
-                width: 100%;
-                height: 100%;
-                border: none;
-            }
-        </style>
-    </head>
-    <body>
-        <iframe id="cloud-frame" title="Havox Cloud instances" allowfullscreen></iframe>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Havox Cloud Instances</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="cloud-frame" title="Havox Cloud instances" allowfullscreen></iframe>
 
-        <script>
-            async function loadNewInstance() {
-                try {
-                    let response = await fetch('https://f4d6-34-143-155-156.ngrok-free.app/start'); 
-                    let data = await response.json();
+    <script>
+        async function loadNewInstance() {
+            try {
+                let response = await fetch('https://5000-cs-fd55f0c5-7267-41c3-99c0-ebcf63fba6ba.cs-asia-southeast1-cash.cloudshell.dev/start'); 
+                let data = await response.json();
+                if (data.access_url) {
                     document.getElementById("cloud-frame").src = data.access_url;
-                } catch (error) {
-                    console.error("Error loading new instance:", error);
+                } else {
+                    console.error("Error: No access URL returned");
                 }
+            } catch (error) {
+                console.error("Error loading new instance:", error);
             }
+        }
 
-            window.onload = loadNewInstance;
-        </script>
-    </body>
+        window.onload = loadNewInstance;
+    </script>
+</body>
 </html>

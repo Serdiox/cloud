@@ -4,29 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Havox Cloud Instances</title>
-    <script>
-        async function redirectToInstance() {
-            try {
-                // Use the publicly accessible Cloud Shell preview URL
-                let response = await fetch('https://5000-cs-fd55f0c5-7267-41c3-99c0-ebcf63fba6ba.cs-asia-southeast1-cash.cloudshell.dev/start');
-                let data = await response.json();
+   <script>
+    async function redirectToInstance() {
+        try {
+            let response = await fetch('https://5000-cs-fd55f0c5-7267-41c3-99c0-ebcf63fba6ba.cs-asia-southeast1-cash.cloudshell.dev/start');
+            let data = await response.json();
 
-                if (data.access_url) {
-                    // Redirect the user to the new instance URL
-                    window.location.href = data.access_url;
-                } else {
-                    console.error("Error: No access URL returned");
-                    document.body.innerHTML = "<h2>Error: Could not fetch instance URL.</h2>";
-                }
-            } catch (error) {
-                console.error("Error loading new instance:", error);
-                document.body.innerHTML = "<h2>Error: Unable to connect to server.</h2>";
+            if (data.access_url) {
+                // Redirect the user to the new instance URL
+                window.location.replace(data.access_url);
+            } else {
+                console.error("Error: No access URL returned");
+                document.body.innerHTML = "<h2>Error: Could not fetch instance URL.</h2>";
             }
+        } catch (error) {
+            console.error("Error loading new instance:", error);
+            document.body.innerHTML = "<h2>Error: Unable to connect to server.</h2>";
         }
+    }
 
-        // Load new instance on page open
-        window.onload = redirectToInstance;
-    </script>
+    // Trigger redirection when page loads
+    window.onload = redirectToInstance;
+</script>
+
 </head>
 <body>
     <h2>Redirecting to your Havox Cloud instance...</h2>

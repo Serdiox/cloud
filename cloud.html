@@ -4,41 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Havox Cloud Instances</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-        }
-        
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
-</head>
-<body>
-    <iframe id="cloud-frame" title="Havox Cloud instances" allowfullscreen></iframe>
-
     <script>
-        async function loadNewInstance() {
+        async function redirectToInstance() {
             try {
-                let response = await fetch('https://5000-cs-fd55f0c5-7267-41c3-99c0-ebcf63fba6ba.cs-asia-southeast1-cash.cloudshell.dev/start'); 
+                let response = await fetch('https://5000-cs-fd55f0c5-7267-41c3-99c0-ebcf63fba6ba.cs-asia-southeast1-cash.cloudshell.dev/start');
                 let data = await response.json();
+
                 if (data.access_url) {
-                    document.getElementById("cloud-frame").src = data.access_url;
+                    window.location.href = data.access_url;
                 } else {
                     console.error("Error: No access URL returned");
+                    document.body.innerHTML = "<h2>Error: Could not fetch instance URL.</h2>";
                 }
             } catch (error) {
                 console.error("Error loading new instance:", error);
+                document.body.innerHTML = "<h2>Error: Unable to connect to server.</h2>";
             }
         }
-
-        window.onload = loadNewInstance;
+        window.onload = redirectToInstance;
     </script>
+</head>
+<body>
+    <h2>Redirecting to your Havox Cloud instance...</h2>
 </body>
 </html>

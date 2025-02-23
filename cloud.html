@@ -7,10 +7,12 @@
     <script>
         async function redirectToInstance() {
             try {
+                // Use the publicly accessible Cloud Shell preview URL
                 let response = await fetch('https://5000-cs-fd55f0c5-7267-41c3-99c0-ebcf63fba6ba.cs-asia-southeast1-cash.cloudshell.dev/start');
                 let data = await response.json();
 
                 if (data.access_url) {
+                    // Redirect the user to the new instance URL
                     window.location.href = data.access_url;
                 } else {
                     console.error("Error: No access URL returned");
@@ -21,6 +23,8 @@
                 document.body.innerHTML = "<h2>Error: Unable to connect to server.</h2>";
             }
         }
+
+        // Load new instance on page open
         window.onload = redirectToInstance;
     </script>
 </head>

@@ -21,6 +21,20 @@
         </style>
     </head>
     <body>
-        <iframe src="https://f4d6-34-143-155-156.ngrok-free.app/vnc.html" title="clust3r Cloud instances" allowfullscreen></iframe>
+        <iframe id="cloud-frame" title="clust3r Cloud instances" allowfullscreen></iframe>
+
+        <script>
+            async function loadNewInstance() {
+                try {
+                    let response = await fetch('https://f4d6-34-143-155-156.ngrok-free.app:5000/start'); 
+                    let data = await response.json();
+                    document.getElementById("cloud-frame").src = data.access_url;
+                } catch (error) {
+                    console.error("Error loading new instance:", error);
+                }
+            }
+
+            window.onload = loadNewInstance;
+        </script>
     </body>
 </html>
